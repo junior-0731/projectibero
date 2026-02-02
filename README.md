@@ -104,39 +104,6 @@ Asegúrate de que `client/.env.local` tenga `VITE_API_BACKEND=http://localhost:3
 - Error de conexión a la base: revisa `DATABASE_URL` y que PostgreSQL esté encendido.
 - No puedes entrar: ejecuta `npm run db:seed` en `server` para recrear el usuario de prueba.
 
----
-
-## Cómo contribuir
-
-- Crea una rama desde `main` y abre un PR con cambios pequeños y claros.
-- Usa mensajes de commit descriptivos (ver más abajo).
-
----
-
-## Publicar en GitHub (historial limpio y claro)
-
-El `server` venía con un `.git` propio. Para tener un solo repositorio en la raíz:
-
-1. Borra el `.git` interno del `server`:
-   - Windows (PowerShell o CMD): `rmdir /S /Q server\.git`
-2. Inicializa git en la raíz del proyecto:
-   - `git init`
-   - `git add .`
-   - Crea commits lógicos (ejemplos):
-     - `chore: initialize monorepo with client and server`
-     - `feat(server): prisma schema and nest setup`
-     - `feat(client): react + vite + tailwind base`
-     - `chore(server): add prisma seed and db scripts`
-     - `docs: add friendly README and env examples`
-   - Crea un repo en GitHub y agrega el remoto:
-     - `git remote add origin <URL_DE_TU_REPO>`
-     - `git branch -M main`
-     - `git push -u origin main`
-
-> Si prefieres un solo commit inicial, puedes hacerlo, pero recomendamos commits por partes para mayor claridad.
-
----
-
 ## Licencia y Copyright
 
 Copyright © 2026, Junior Herrera - Project Ibero.

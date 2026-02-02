@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { empleadoEntity } from './empleado.entity';
 import { CreateEmpleadoDto } from 'src/database/dto/empleado.create.dto';
@@ -42,6 +42,13 @@ export class EmpleadoService {
   // usamos el DTO creado
   async createEmpleado(body:CreateEmpleadoDto): Promise<empleadoEntity | undefined>{
     try {
+      //Corroborar si existe el name
+      const validation = await this.prisma.empleado.findFirst({
+        where:{
+          userName: body.userName
+        }
+      })
+      if(validation) throw new BadRequestException('Este usuario ya esta en uso')
 
       // Generar un numero de salto
       const salt = await bcrypt.genSalt()
@@ -60,6 +67,7 @@ export class EmpleadoService {
       return result;
       
     } catch (error) {
+      if(error instanceof BadRequestException) throw new BadRequestException(error.message)
       if(error instanceof Error){
         throw new InternalServerErrorException(error.message)
       }

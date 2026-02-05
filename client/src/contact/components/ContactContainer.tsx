@@ -23,6 +23,7 @@ export default function ContactContainer() {
         if(filter.trim())
         return contacts.filter(el=>el.name.toLowerCase().includes(filter.toLowerCase())  || 
         el.lastName.toLowerCase().includes(filter.toLowerCase()) || 
+        el.address.toLowerCase().includes(filter.toLowerCase()) || 
         el.phone.toLowerCase().includes(filter.toLowerCase()) || 
         el.email.toLowerCase().includes(filter.toLowerCase()))
         return contacts
@@ -36,22 +37,30 @@ export default function ContactContainer() {
             modifyContact(body,id);
         }
     }
-    if(contacts.length === 0){
-        return <p>No se encontraron datos</p>
-    }
-    else{
          return (
             <section className='w-full flex flex-col gap-10 justify-center items-center mt-4'>
-                <input type="text" placeholder='Buscar...' className='p-2 text-sm outline-none border rounded-full border-gray-200 w-[90%] hover:border-2 hover:border-sky-500 transition-all' 
-                value={filter}
-                onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setFilter(e.target.value)}
-                />
-                <div className="w-90% flex flex-row flex-wrap gap-2 border-2 border-gray-200 p-5">
-                        {filterContacts.map((el, index)=>(
-                            <CardContact key={index} contact={el} save={handleSaveData}
-                            deleteContact={removeContact}/>
-                        ))}
-                </div>
+                {contacts.length === 0?
+                    <p>No se encontraron Contactos</p>:
+                    <>
+                        <input type="text" placeholder='Buscar...' className='p-2 text-sm outline-none border rounded-full border-gray-200 w-[90%] hover:border-2 hover:border-sky-500 transition-all' 
+                        value={filter}
+                        onChange={(e:React.ChangeEvent<HTMLInputElement>)=> setFilter(e.target.value)}
+                        />
+                        {   
+                            filterContacts.length === 0?
+                                <></>:
+                                <div className="w-90% flex flex-row flex-wrap gap-2 border-2 p-5">
+                                        {filterContacts.map((el, index)=>(
+                                            <CardContact key={index} contact={el} save={handleSaveData}
+                                            deleteContact={removeContact}/>
+                                        ))}
+                                </div>
+
+                            }
+
+
+                    </>
+                }
 
                 <Dialog>
                     <DialogTrigger className='font-semibold text-sky-600 uppercase underline text-sm cursor-pointer'>Add contact</DialogTrigger>
@@ -76,4 +85,3 @@ export default function ContactContainer() {
     )
     }
  
-}

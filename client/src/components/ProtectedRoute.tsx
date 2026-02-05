@@ -24,7 +24,7 @@ export default function ProtectedRoute({children}: props) {
     // importar el estadop global AppContext y traer el login y logout
 
     const {login, logout} = useAppContext();
-     // Hacer uso de un ciclo de vida useEffect qu eestara al tanto de el cambio de nada [], ya que es en la carga del componente
+     // Hacer uso de un ciclo de vida useEffect que eestara al tanto de el cambio de nada [], ya que es en la carga del componente
 
      useEffect(()=>{
         // esta función es para obtenrer la autenticacion, validar si los tokens han expirado o no, para asignar un valor o no asignarlo al estado global
